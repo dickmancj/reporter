@@ -1,29 +1,44 @@
 import React, {Component} from 'react';
-
-let Classification = React.createClass({
-  getInitialState() {
-    return {value: 'Hello'};
-  },
-  handleChange(event) {
-    console.log(event.target.value);
-    this.setState({value: event.target.value});
-  },
-  render() {
-    return (
-        <div className="mdl-textfield mdl-js-textfield">
-          <input className="mdl-textfield__input" type="text" id={this.props.id} value={this.state.value}
-                 onChange={this.handleChange}/>
-          <label className="mdl-textfield__label" htmlFor={this.props.id}>{this.props.title}</label>
-        </div>
-    );
-  }
-});
+import { Textfield, Menu, MenuItem, Button } from 'react-mdl';
 
 class Form extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      title: '',
+      classification: 'Classification...'
+    };
+    this.changeTitle = this.changeTitle.bind(this);
+    this.changeClassification = this.changeClassification.bind(this);
+  }
+
+  changeTitle(value) {
+    this.setState({title: value}, () => {
+      // callback after state changes
+      console.log(this.state.title);
+    });
+  }
+
+  changeClassification(value) {
+    this.setState({classification: value}, () => {
+      // callback after state changes
+      console.log(this.state.classification);
+    });
+  }
+
   render() {
     return (
         <form>
-          <Classification id="test"/>
+          <Textfield onChange={(event) => { this.changeTitle(event.target.value) }} label="Title" floatingLabel/>
+          <div>
+            <Button ripple id="classificationBtn" onClick={(event) => { event.preventDefault(); }}>{this.state.classification}</Button>
+            <Menu target="classificationBtn">
+              <MenuItem onClick={() => { this.changeClassification('Unclassified'); }}>Unclassified</MenuItem>
+              <MenuItem onClick={() => { this.changeClassification('FOUO'); }}>FOUO</MenuItem>
+              <MenuItem onClick={() => { this.changeClassification('Secret'); }}>Secret</MenuItem>
+              <MenuItem onClick={() => { this.changeClassification('Top Secret'); }}>Top Secret</MenuItem>
+            </Menu>
+          </div>
         </form>
     );
   }
