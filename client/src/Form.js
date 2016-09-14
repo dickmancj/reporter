@@ -6,40 +6,58 @@ class Form extends Component {
     super(props);
     this.state = {
       title: '',
-      classification: 'Classification...'
+      description: '',
+      classification: 'Classification',
+      author: '',
+      url: '',
+      keyword_list: ''
     };
-    this.changeTitle = this.changeTitle.bind(this);
-    this.changeClassification = this.changeClassification.bind(this);
+    this.changeState = this.changeState.bind(this);
   }
 
-  changeTitle(value) {
-    this.setState({title: value}, () => {
+  changeState(key, value) {
+    let stateObj = {};
+    stateObj[key] = value;
+    this.setState(stateObj, () => {
       // callback after state changes
-      console.log(this.state.title);
-    });
-  }
-
-  changeClassification(value) {
-    this.setState({classification: value}, () => {
-      // callback after state changes
-      console.log(this.state.classification);
+      console.log(this.state[key]);
     });
   }
 
   render() {
     return (
-        <form>
-          <Textfield onChange={(event) => { this.changeTitle(event.target.value) }} label="Title" floatingLabel/>
+        <div>
           <div>
-            <Button ripple id="classificationBtn" onClick={(event) => { event.preventDefault(); }}>{this.state.classification}</Button>
+            <Button raised ripple id="classificationBtn" onClick={(event) => { event.preventDefault(); }}>{this.state.classification} <i className="material-icons">keyboard_arrow_down</i></Button>
             <Menu target="classificationBtn">
-              <MenuItem onClick={() => { this.changeClassification('Unclassified'); }}>Unclassified</MenuItem>
-              <MenuItem onClick={() => { this.changeClassification('FOUO'); }}>FOUO</MenuItem>
-              <MenuItem onClick={() => { this.changeClassification('Secret'); }}>Secret</MenuItem>
-              <MenuItem onClick={() => { this.changeClassification('Top Secret'); }}>Top Secret</MenuItem>
+              <MenuItem onClick={() => { this.changeState('classification', 'Unclassified'); }}>Unclassified</MenuItem>
+              <MenuItem onClick={() => { this.changeState('classification', 'FOUO'); }}>FOUO</MenuItem>
+              <MenuItem onClick={() => { this.changeState('classification', 'Secret'); }}>Secret</MenuItem>
+              <MenuItem onClick={() => { this.changeState('classification', 'Top Secret'); }}>Top Secret</MenuItem>
             </Menu>
           </div>
-        </form>
+          <div className="mdl-grid">
+            <div className="mdl-cell mdl-cell--4-col">
+              <div>
+                <Textfield onChange={(event) => { this.changeState('title', event.target.value) }} label="Title" floatingLabel/>
+              </div>
+              <div>
+                <Textfield onChange={(event) => { this.changeState('description', event.target.value) }} label="Description" rows={3}/>
+              </div>
+              <div>
+                <Textfield onChange={(event) => { this.changeState('keyword_list', event.target.value) }} label="Keywords" rows={3}/>
+              </div>
+            </div>
+            <div className="mdl-cell mdl-cell--4-col">
+              <div>
+                <Textfield onChange={(event) => { this.changeState('author', event.target.value) }} label="Author" floatingLabel/>
+              </div>
+              <div>
+                <Textfield onChange={(event) => { this.changeState('url', event.target.value) }} label="URL" floatingLabel/>
+              </div>
+            </div>
+          </div>
+        </div>
     );
   }
 }
