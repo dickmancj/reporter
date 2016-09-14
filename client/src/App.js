@@ -2,8 +2,10 @@ import React, {Component} from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Form from './Form';
+import ReportList from './ReportList';
 
 class App extends Component {
+
   render() {
     return (
         <div className="App">
@@ -13,6 +15,9 @@ class App extends Component {
           </div>
           <div className="App-intro">
             <Form />
+          </div>
+          <div>
+            <ReportList source="http://localhost:9200/reports/document/_search?q=Research%20Report%202&pretty=true"/>
           </div>
         </div>
     );
