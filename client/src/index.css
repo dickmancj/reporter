@@ -27,8 +27,3 @@ body {
     padding: 0;
     font-family: sans-serif;
 }
-
-/******************* Material Design Overrides *******************/
-.mdl-textfield {
-  width: 100%;
-}

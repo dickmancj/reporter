@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
-import { Textfield, Menu, MenuItem, Button } from 'react-mdl';
+import TextField from 'material-ui/TextField';
+import SelectField from 'material-ui/SelectField';
+import MenuItem from 'material-ui/MenuItem';
 
 class Form extends Component {
   constructor(props) {
@@ -7,15 +9,16 @@ class Form extends Component {
     this.state = {
       title: '',
       description: '',
-      classification: 'Classification',
+      classification: 'Unclassified',
       author: '',
       url: '',
-      keyword_list: ''
+      keyword_list: '',
+      product_id: ''
     };
-    this.changeState = this.changeState.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
-  changeState(key, value) {
+  handleChange(key, value) {
     let stateObj = {};
     stateObj[key] = value;
     this.setState(stateObj, () => {
@@ -28,34 +31,30 @@ class Form extends Component {
     return (
         <div>
           <div>
-            <Button raised ripple id="classificationBtn" onClick={(event) => { event.preventDefault(); }}>{this.state.classification} <i className="material-icons">keyboard_arrow_down</i></Button>
-            <Menu target="classificationBtn">
-              <MenuItem onClick={() => { this.changeState('classification', 'Unclassified'); }}>Unclassified</MenuItem>
-              <MenuItem onClick={() => { this.changeState('classification', 'FOUO'); }}>FOUO</MenuItem>
-              <MenuItem onClick={() => { this.changeState('classification', 'Secret'); }}>Secret</MenuItem>
-              <MenuItem onClick={() => { this.changeState('classification', 'Top Secret'); }}>Top Secret</MenuItem>
-            </Menu>
+            <TextField id="title" onChange={(event) => { this.handleChange('title', event.target.value); }} floatingLabelText="Title"/>
           </div>
-          <div className="mdl-grid">
-            <div className="mdl-cell mdl-cell--4-col">
-              <div>
-                <Textfield onChange={(event) => { this.changeState('title', event.target.value) }} label="Title" floatingLabel/>
-              </div>
-              <div>
-                <Textfield onChange={(event) => { this.changeState('description', event.target.value) }} label="Description" rows={3}/>
-              </div>
-              <div>
-                <Textfield onChange={(event) => { this.changeState('keyword_list', event.target.value) }} label="Keywords" rows={3}/>
-              </div>
-            </div>
-            <div className="mdl-cell mdl-cell--4-col">
-              <div>
-                <Textfield onChange={(event) => { this.changeState('author', event.target.value) }} label="Author" floatingLabel/>
-              </div>
-              <div>
-                <Textfield onChange={(event) => { this.changeState('url', event.target.value) }} label="URL" floatingLabel/>
-              </div>
-            </div>
+          <div>
+            <TextField id="description" onChange={(event) => { this.handleChange('description', event.target.value); }} label="Description" multiLine={true} rows={3}/>
+          </div>
+          <div>
+            <SelectField value={this.state.classification} onChange={(event, key, payload) => { this.handleChange('classification', payload); }} floatingLabelText="Classification" fullWidth={true}>
+              <MenuItem value="Unclassified" primaryText="Unclassified" />
+              <MenuItem value="FOUO" primaryText="FOUO" />
+              <MenuItem value="Secret" primaryText="Secret" />
+              <MenuItem value="Top Secret" primaryText="Top Secret" />
+            </SelectField>
+          </div>
+          <div>
+            <TextField id="keyword-list" onChange={(event) => { this.handleChange('keyword_list', event.target.value); }} label="Keywords" multiLine={true} rows={3}/>
+          </div>
+          <div>
+            <TextField id="author" onChange={(event) => { this.handleChange('author', event.target.value); }} floatingLabelText="Author"/>
+          </div>
+          <div>
+            <TextField id="url" onChange={(event) => { this.handleChange('url', event.target.value); }} floatingLabelText="URL"/>
+          </div>
+          <div>
+            <TextField id="product-id" onChange={(event) => { this.handleChange('product_id', event.target.value); }} floatingLabelText="Product ID"/>
           </div>
         </div>
     );
