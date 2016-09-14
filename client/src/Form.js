@@ -57,7 +57,7 @@ class Form extends Component {
           <div>
             <TextField id="product-id" onChange={(event) => { this.handleChange('product_id', event.target.value); }} floatingLabelText="Product ID"/>
           </div>
-          <ReportList source="http://localhost:9200/reports/document/_search?q=Research%20Report%202&pretty=true"/>
+          <ReportList source="http://localhost:9200/reports/document/_search?pretty=true"/>
         </div>
     );
   }

@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
 import $ from 'jquery';
+import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
 
-class ReportSummary extends Component {
-  render() {
-    return <li>{this.props.data._source.title}, {this.props.data._score}</li>;
-  }
-}
+//class ReportSummary extends Component {
+//  render() {
+//    return <li>{this.props.data._source.title}, {this.props.data._score}</li>;
+//  }
+//}
 
 class ReportList extends Component {
 
@@ -29,12 +30,27 @@ class ReportList extends Component {
       console.log(this.state.reports);
     }
     var rpts = this.state && this.state.reports ? this.state.reports.map(function(result) {
-      return <ReportSummary key={result._id} data={result}/>;
+      return <TableRow key={result._id}>
+          <TableRowColumn>{result._id}</TableRowColumn>
+          <TableRowColumn>{result._source.title}</TableRowColumn>
+          <TableRowColumn>{result._score}</TableRowColumn>
+        </TableRow>;
     }) : "";
     return (
       <div className="ReportList">
         Report List
-          { rpts }
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHeaderColumn>ID</TableHeaderColumn>
+              <TableHeaderColumn>Title</TableHeaderColumn>
+              <TableHeaderColumn>Score</TableHeaderColumn>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            { rpts }
+          </TableBody>
+        </Table>
       </div>
     );
   }
