@@ -9,10 +9,11 @@ import Form from './Form';
 injectTapEventPlugin();
 
 class App extends Component {
+
   render() {
     return (
         <MuiThemeProvider>
-            <Form />
+          <Form />
         </MuiThemeProvider>
     );
   }
