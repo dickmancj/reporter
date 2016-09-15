@@ -1,0 +1,28 @@
+.file-input {
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  width: 100%;
+  opacity: 0;
+}
+
+.dropzone {
+  border: 1px dotted #000;
+  padding: 10px;
+  min-width: 550px;
+  height: 110px;
+}
+
+.submit-btn {
+  margin: 20px;
+}
+
+@media (max-width: 1190px) {
+  .dropzone {
+    min-width: 0;
+    height: auto;
+  }
+}
