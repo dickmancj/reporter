@@ -13,6 +13,8 @@ class ReportList extends Component {
     const search_query = '*';
 
     client.search({
+      index: 'reports',
+      type: 'document',
       q: search_query
     }).then(function ( body ) {
       this.setState({ reports: body.hits.hits })

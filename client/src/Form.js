@@ -30,6 +30,8 @@ class Form extends Component {
   }
 
   handleChange(key, value) {
+    console.log(key);
+    console.log(value);
     let stateObj = {};
     stateObj[key] = value;
     this.setState(stateObj, () => {
