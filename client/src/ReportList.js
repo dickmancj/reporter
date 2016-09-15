@@ -1,5 +1,9 @@
 import React, {Component} from 'react';
+import Header from './Header';
+import Navigation from './Navigation';
+import Paper from 'material-ui/Paper';
 import $ from 'jquery';
+import './ReportList.css';
 
 class ReportSummary extends Component {
   render() {
@@ -32,10 +36,16 @@ class ReportList extends Component {
       return <ReportSummary key={result._id} data={result}/>;
     }) : "";
     return (
-      <div className="ReportList">
-        Report List
-          { rpts }
-      </div>
+        <div>
+          <Header/>
+          <Navigation path={this.props.route.path}/>
+          <Paper className="paper" zDepth={2}>
+            <div className="reportList">
+              Report List
+                { rpts }
+            </div>
+          </Paper>
+        </div>
     );
   }
 }

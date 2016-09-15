@@ -8,16 +8,6 @@
   flex: 1;
 }
 
-@media (max-width: 1190px) {
-  .flex-grid {
-    display: block;
-  }
-  .col {
-    width: 100%;
-    margin: 0 0 10px 0;
-  }
-}
-
 * {
   box-sizing: border-box;
 }
@@ -28,6 +18,19 @@
   padding: 20px;
 }
 
+header {
+  padding: 70px;
+  background: #333;
+  color: #fff;
+  text-align: center;
+  font-size: 2.5rem;
+}
+
+.paper {
+  width: 595px;
+  margin: 20px auto;
+}
+
 .text-right {
   text-align: right;
 }
@@ -36,4 +39,17 @@
 }
 .text-center {
   text-align: center;
+}
+
+@media (max-width: 625px) {
+  .flex-grid {
+    display: block;
+  }
+  .col {
+    width: 100%;
+    margin: 0 0 10px 0;
+  }
+  .paper {
+    width: 95%;
+  }
 }
