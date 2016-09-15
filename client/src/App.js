@@ -18,7 +18,7 @@ class App extends Component {
           <MuiThemeProvider>
             <Router history={browserHistory}>
               <Route path="/" component={ReportForm}/>
-              <Route path="/search" component={ReportList}/>
+              <Route path="/list" component={ReportList}/>
             </Router>
           </MuiThemeProvider>
         </div>

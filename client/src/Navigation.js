@@ -31,9 +31,9 @@ export default class Navigation extends React.Component {
               value="/"
           />
           <Tab
-              icon={<FontIcon className="material-icons">search</FontIcon>}
-              label="SEARCH"
-              value="/search"
+              icon={<FontIcon className="material-icons">format_list_bulleted</FontIcon>}
+              label="REPORT LIST"
+              value="/list"
           />
         </Tabs>
     );
