@@ -30,12 +30,16 @@ class ReportList extends Component {
       console.log(this.state.reports);
     }
     var rpts = this.state && this.state.reports ? this.state.reports.map(function(result) {
-      return <TableRow key={result._id}>
+      return (
+        <TableRow key={result._id}>
           <TableRowColumn>{result._id}</TableRowColumn>
           <TableRowColumn>{result._source.title}</TableRowColumn>
           <TableRowColumn>{result._score}</TableRowColumn>
-        </TableRow>;
-    }) : "";
+        </TableRow>
+      );
+    }) : (
+      <TableRow>No Results</TableRow>
+    );
     return (
       <div className="ReportList">
         Report List
