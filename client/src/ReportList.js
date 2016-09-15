@@ -1,22 +1,31 @@
 import React, {Component} from 'react';
-import $ from 'jquery';
+import elasticsearch from 'elasticsearch';
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
 
-//class ReportSummary extends Component {
-//  render() {
-//    return <li>{this.props.data._source.title}, {this.props.data._score}</li>;
-//  }
-//}
+let client = new elasticsearch.Client({
+  host: 'localhost:9200'
+  //log: 'trace'
+})
 
 class ReportList extends Component {
 
   loadReportsFromServer() {
-    $.ajax({
-      url: this.props.source,
-      cache: false,
-      success: function(data) {
-        this.setState({reports: data.hits && data.hits.hits ? data.hits.hits : []});
-      }.bind(this)
+    const search_query = '*';
+
+    client.search({
+      q: search_query
+    }).then(function ( body ) {
+      this.setState({ reports: body.hits.hits })
+    }.bind(this), function ( error ) {
+      console.trace( error.message );
+    });
+  }
+
+  constructor(props){
+    super(props);
+    client = new elasticsearch.Client({
+      host: props.source
+      //log: 'trace'
     });
   }
 
@@ -26,9 +35,7 @@ class ReportList extends Component {
   }
 
   render() {
-    if(this.state && this.state.reports){
-      console.log(this.state.reports);
-    }
+
     var rpts = this.state && this.state.reports ? this.state.reports.map(function(result) {
       return (
         <TableRow key={result._id}>

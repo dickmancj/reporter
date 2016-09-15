@@ -105,7 +105,7 @@ class Form extends Component {
           <div className="submit-btn">
             <RaisedButton label="Submit" fullWidth={true} labelPosition="before" primary={true} icon={<FontIcon className="material-icons">check_circle</FontIcon>} onClick={this.handleClick}/>
           </div>
-          <ReportList source="http://localhost:9200/reports/document/_search?pretty=true"/>
+          <ReportList source="localhost:9200"/>
         </div>
     );
   }
