@@ -1,11 +1,15 @@
 import React, {Component} from 'react';
+import Header from './Header';
+import Navigation from './Navigation';
+import Paper from 'material-ui/Paper';
+import './ReportList.css';
 import elasticsearch from 'elasticsearch';
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
 
 let client = new elasticsearch.Client({
   host: 'localhost:9200'
   //log: 'trace'
-})
+});
 
 class ReportList extends Component {
 
@@ -50,20 +54,26 @@ class ReportList extends Component {
       <TableRow>No Results</TableRow>
     );
     return (
-      <div className="ReportList">
-        Report List
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHeaderColumn>ID</TableHeaderColumn>
-              <TableHeaderColumn>Title</TableHeaderColumn>
-              <TableHeaderColumn>Score</TableHeaderColumn>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            { rpts }
-          </TableBody>
-        </Table>
+      <div>
+        <Header/>
+        <Navigation path={this.props.route.path}/>
+        <Paper className="paper" zDepth={2}>
+          <div className="ReportList">
+            Report List
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHeaderColumn>ID</TableHeaderColumn>
+                  <TableHeaderColumn>Title</TableHeaderColumn>
+                  <TableHeaderColumn>Score</TableHeaderColumn>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                { rpts }
+              </TableBody>
+            </Table>
+          </div>
+        </Paper>
       </div>
     );
   }
