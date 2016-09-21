@@ -14,7 +14,7 @@ let client = new elasticsearch.Client({
 class ReportList extends Component {
 
   loadReportsFromServer() {
-    const search_query = '*';
+    const search_query = 'ipsum';
 
     client.search({
       index: 'reports',

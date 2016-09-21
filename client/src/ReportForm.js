@@ -46,13 +46,20 @@ class Form extends Component {
     var files = this.state['report_files'];
     reader.onload = function(e) {
       var rawData = e.target.result;
+      console.log(e);
       console.log(rawData);
       var esdoc = {
+        classification: this.state.classification,
         title: this.state.title,
         description: this.state.description,
-        data: rawData.split(',')[1]
-      }
-      axios.post('http://localhost:9200/reports/document/5', esdoc)
+        keyword_list: this.state.keyword_list,
+        url: this.state.url,
+        author: this.state.author,
+        publish_date: this.state.publish_date,
+        report_content: rawData.split(',')[1]
+      };
+
+      axios.post('http://localhost:9200/reports/document/', esdoc)
         .then(function(response){
           console.log(response);
         });
