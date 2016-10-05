@@ -1,10 +1,12 @@
 import React, {Component} from 'react';
+import _ from 'lodash';
 import Header from './Header';
 import Navigation from './Navigation';
 import Paper from 'material-ui/Paper';
 import './ReportList.css';
 import elasticsearch from 'elasticsearch';
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
+import TextField from 'material-ui/TextField';
 
 let client = new elasticsearch.Client({
   host: 'localhost:9200'
@@ -13,15 +15,15 @@ let client = new elasticsearch.Client({
 
 class ReportList extends Component {
 
-  loadReportsFromServer() {
-    const search_query = 'ipsum';
 
+  loadReportsFromServer(search_query) {
+    if(search_query === ''){ search_query = '*' }
     client.search({
       index: 'reports',
       type: 'document',
       q: search_query
     }).then(function ( body ) {
-      this.setState({ reports: body.hits.hits })
+      this.setState({ reports: body.hits.hits });
     }.bind(this), function ( error ) {
       console.trace( error.message );
     });
@@ -35,13 +37,19 @@ class ReportList extends Component {
     });
   }
 
+  componentWillMount() {
+    this.queryChanged = _.debounce(function (search_query) {
+      console.log(search_query);
+      this.loadReportsFromServer(search_query);
+    }, 500);
+  }
+
   componentDidMount() {
     //this.setState({reports: []});
-    this.loadReportsFromServer();
+    this.loadReportsFromServer('*');
   }
 
   render() {
-
     var rpts = this.state && this.state.reports ? this.state.reports.map(function(result) {
       return (
         <TableRow key={result._id}>
@@ -58,6 +66,13 @@ class ReportList extends Component {
         <Header/>
         <Navigation path={this.props.route.path}/>
         <Paper className="paper" zDepth={2}>
+          <div className="ReportSearch">
+            <TextField
+              floatingLabelText="Search"
+              onChange={(event, key, payload) => { this.queryChanged(event.target.value); }}
+              style = {{width: "100%"}}
+              />
+          </div>
           <div className="ReportList">
             Report List
             <Table>
