@@ -30,6 +30,7 @@ class Form extends Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.validateForm = this.validateForm.bind(this);
   }
 
   handleChange(key, value) {
@@ -75,6 +76,10 @@ class Form extends Component {
     console.log(formData);
   }
 
+  validateForm() {
+    return !!(this.state.classification && this.state.report_type && this.state.title && this.state.product_id && this.state.report_files.length > 0);
+  }
+
   render() {
     return (
         <div>
@@ -83,7 +88,7 @@ class Form extends Component {
           <Paper className="paper" zDepth={2}>
             <div className="flex-grid">
               <div className="col">
-                <SelectField value={this.state.classification} onChange={(event, key, payload) => { this.handleChange('classification', payload); }} floatingLabelText="Classification">
+                <SelectField value={this.state.classification} onChange={(event, key, payload) => { this.handleChange('classification', payload); }} floatingLabelText="Classification" errorText={!this.state.classification && 'Classification is required'}>
                   <MenuItem value="Unclassified" primaryText="Unclassified" />
                   <MenuItem value="FOUO" primaryText="FOUO" />
                   <MenuItem value="Secret" primaryText="Secret" />
@@ -91,7 +96,7 @@ class Form extends Component {
                 </SelectField>
               </div>
               <div className="col">
-                <SelectField value={this.state.report_type} onChange={(event, key, payload) => { this.handleChange('report_type', payload); }} floatingLabelText="Report Type">
+                <SelectField value={this.state.report_type} onChange={(event, key, payload) => { this.handleChange('report_type', payload); }} floatingLabelText="Report Type" errorText={!this.state.report_type && 'Report Type is required'}>
                   <MenuItem value="Type 1" primaryText="Type 1" />
                   <MenuItem value="Type 2" primaryText="Type 2" />
                   <MenuItem value="Type 3" primaryText="Type 3" />
@@ -101,7 +106,7 @@ class Form extends Component {
             </div>
             <div className="flex-grid">
               <div className="col">
-                <TextField id="title" onChange={(event) => { this.handleChange('title', event.target.value); }} floatingLabelText="Title"/>
+                <TextField id="title" onChange={(event) => { this.handleChange('title', event.target.value); }} floatingLabelText="Title" errorText={!this.state.title && 'Title is required'}/>
               </div>
               <div className="col">
                 <TextField id="author" onChange={(event) => { this.handleChange('author', event.target.value); }} floatingLabelText="Author"/>
@@ -120,7 +125,7 @@ class Form extends Component {
                 <TextField id="url" onChange={(event) => { this.handleChange('url', event.target.value); }} floatingLabelText="URL"/>
               </div>
               <div className="col">
-                <TextField id="product-id" onChange={(event) => { this.handleChange('product_id', event.target.value); }} floatingLabelText="Product ID"/>
+                <TextField id="product-id" onChange={(event) => { this.handleChange('product_id', event.target.value); }} floatingLabelText="Product ID" errorText={!this.state.product_id && 'Product ID is required'}/>
               </div>
             </div>
             <div className="flex-grid">
@@ -145,7 +150,7 @@ class Form extends Component {
             <div className="flex-grid">
               <div className="col">
                 <div className="submit-btn">
-                  <RaisedButton label="Submit" fullWidth={true} labelPosition="before" primary={true} icon={<FontIcon className="material-icons">check_circle</FontIcon>} onClick={this.handleClick}/>
+                  <RaisedButton label="Submit" fullWidth={true} labelPosition="before" primary={true} icon={<FontIcon className="material-icons">check_circle</FontIcon>} onClick={this.handleClick} disabled={!this.validateForm()}/>
                 </div>
               </div>
             </div>
