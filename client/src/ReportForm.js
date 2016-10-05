@@ -10,6 +10,8 @@ import DatePicker from 'material-ui/DatePicker';
 import RaisedButton from 'material-ui/RaisedButton';
 import FontIcon from 'material-ui/FontIcon';
 import Paper from 'material-ui/Paper';
+import CircularProgress from 'material-ui/CircularProgress';
+import Snackbar from 'material-ui/Snackbar';
 import './ReportForm.css';
 
 class Form extends Component {
@@ -26,11 +28,16 @@ class Form extends Component {
       publish_date: new Date(),
       updated_date: new Date(),
       report_type: '',
-      report_files: []
+      report_files: [],
+      show_overlay: false,
+      show_snackbar: false,
+      snackbar_message: '',
+      snackbar_class: ''
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.validateForm = this.validateForm.bind(this);
+    this.handleRequestClosed = this.handleRequestClosed.bind(this);
   }
 
   handleChange(key, value) {
@@ -43,8 +50,10 @@ class Form extends Component {
   }
 
   handleClick() {
+    var self = this;
     var reader = new FileReader();
     var files = this.state['report_files'];
+    self.setState({show_overlay: true});
     reader.onload = function(e) {
       var rawData = e.target.result;
       console.log(e);
@@ -62,7 +71,43 @@ class Form extends Component {
 
       axios.post('http://localhost:9200/reports/document/', esdoc)
         .then(function(response){
+          self.setState({
+            title: '',
+            description: '',
+            classification: '',
+            author: '',
+            url: '',
+            keyword_list: '',
+            product_id: '',
+            publish_date: new Date(),
+            updated_date: new Date(),
+            report_type: '',
+            report_files: [],
+            show_overlay: false,
+            snackbar_message: 'Form submission successful',
+            show_snackbar: true,
+            snackbar_class: 'success'
+          });
           console.log(response);
+        })
+        .catch(function (error) {
+          if (error.response) {
+            // The request was made, but the server responded with a status code
+            // that falls out of the range of 2xx
+            console.log(error.response.data);
+            console.log(error.response.status);
+            console.log(error.response.headers);
+          } else {
+            // Something happened in setting up the request that triggered an Error
+            console.log('Error', error.message);
+          }
+          console.log(error.config);
+          self.setState({
+            show_overlay: false,
+            snackbar_message: 'Error posting document: ' + error.message,
+            show_snackar: true,
+            snackbar_class: 'fail'
+          });
         });
       console.log(esdoc);
     }.bind(this);
@@ -80,9 +125,30 @@ class Form extends Component {
     return !!(this.state.classification && this.state.report_type && this.state.title && this.state.product_id && this.state.report_files.length > 0);
   }
 
+  handleRequestClosed() {
+    this.setState({
+      snackbar_message: '',
+      show_snackbar: false,
+      snackbar_class: ''
+    });
+  }
+
   render() {
     return (
-        <div>
+        <div className="container">
+          {this.state.show_overlay ? <div className="overlay">
+            <div className="content">
+              <CircularProgress/>
+            </div>
+          </div> : null}
+          <Snackbar
+              open={this.state.show_snackbar}
+              message={this.state.snackbar_message}
+              autoHideDuration={4000}
+              onRequestClose={this.handleRequestClose}
+              className={this.state.snackbar_class}
+              bodyStyle={{"background": "none"}}
+          />
           <Header/>
           <Navigation path={this.props.route.path}/>
           <Paper className="paper" zDepth={2}>
@@ -106,10 +172,10 @@ class Form extends Component {
             </div>
             <div className="flex-grid">
               <div className="col">
-                <TextField id="title" onChange={(event) => { this.handleChange('title', event.target.value); }} floatingLabelText="Title" errorText={!this.state.title && 'Title is required'}/>
+                <TextField id="title" onChange={(event) => { this.handleChange('title', event.target.value); }} floatingLabelText="Title" value={this.state.title} errorText={!this.state.title && 'Title is required'}/>
               </div>
               <div className="col">
-                <TextField id="author" onChange={(event) => { this.handleChange('author', event.target.value); }} floatingLabelText="Author"/>
+                <TextField id="author" onChange={(event) => { this.handleChange('author', event.target.value); }} floatingLabelText="Author" value={this.state.author}/>
               </div>
             </div>
             <div className="flex-grid">
@@ -122,18 +188,18 @@ class Form extends Component {
             </div>
             <div className="flex-grid">
               <div className="col">
-                <TextField id="url" onChange={(event) => { this.handleChange('url', event.target.value); }} floatingLabelText="URL"/>
+                <TextField id="url" onChange={(event) => { this.handleChange('url', event.target.value); }} floatingLabelText="URL" value={this.state.url}/>
               </div>
               <div className="col">
-                <TextField id="product-id" onChange={(event) => { this.handleChange('product_id', event.target.value); }} floatingLabelText="Product ID" errorText={!this.state.product_id && 'Product ID is required'}/>
+                <TextField id="product-id" onChange={(event) => { this.handleChange('product_id', event.target.value); }} floatingLabelText="Product ID" value={this.state.product_id} errorText={!this.state.product_id && 'Product ID is required'}/>
               </div>
             </div>
             <div className="flex-grid">
               <div className="col">
-                <TextField id="description" onChange={(event) => { this.handleChange('description', event.target.value); }} multiLine={true} rows={3} floatingLabelText="Description"/>
+                <TextField id="description" onChange={(event) => { this.handleChange('description', event.target.value); }} multiLine={true} rows={3} floatingLabelText="Description" value={this.state.description}/>
               </div>
               <div className="col">
-                <TextField id="keyword-list" onChange={(event) => { this.handleChange('keyword_list', event.target.value); }} multiLine={true} rows={3} floatingLabelText="Keywords"/>
+                <TextField id="keyword-list" onChange={(event) => { this.handleChange('keyword_list', event.target.value); }} multiLine={true} rows={3} floatingLabelText="Keywords" value={this.state.keyword_list}/>
               </div>
             </div>
             <div className="flex-grid">
