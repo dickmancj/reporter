@@ -70,7 +70,7 @@ class ReportList extends Component {
             <TextField
               floatingLabelText="Search"
               onChange={(event, key, payload) => { this.queryChanged(event.target.value); }}
-              style = {{width: "100%"}}
+              style={{width: "100%"}}
               />
           </div>
           <div className="ReportList">
