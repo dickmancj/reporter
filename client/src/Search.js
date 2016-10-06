@@ -3,20 +3,22 @@ import _ from 'lodash';
 import Header from './Header';
 import Navigation from './Navigation';
 import Paper from 'material-ui/Paper';
-import './ReportList.css';
+import './Search.css';
 import elasticsearch from 'elasticsearch';
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
 import TextField from 'material-ui/TextField';
 
 let client = new elasticsearch.Client({
-  host: 'localhost:9200'
+  host: process.env.REPORTS_ES_HOST
   //log: 'trace'
 });
 
-class ReportList extends Component {
+class Search extends Component {
 
 
   loadReportsFromServer(search_query) {
+    console.log(process.env.REPORTS_ES_HOST);
+
     if(search_query === ''){ search_query = '*' }
     client.search({
       index: 'reports',
@@ -74,7 +76,7 @@ class ReportList extends Component {
               />
           </div>
           <div className="ReportList">
-            Report List
+            Results
             <Table>
               <TableHeader>
                 <TableRow>
@@ -94,4 +96,4 @@ class ReportList extends Component {
   }
 }
 
-export default ReportList;
+export default Search;

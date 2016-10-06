@@ -56,8 +56,8 @@ class Form extends Component {
     self.setState({show_overlay: true});
     reader.onload = function(e) {
       var rawData = e.target.result;
-      console.log(e);
-      console.log(rawData);
+      //console.log(e);
+      //console.log(rawData);
       var esdoc = {
         classification: this.state.classification,
         title: this.state.title,
@@ -69,7 +69,7 @@ class Form extends Component {
         report_content: rawData.split(',')[1]
       };
 
-      axios.post('http://localhost:9200/reports/document/', esdoc)
+      axios.post('http://' + process.env.REPORTS_ES_HOST + '/reports/document/', esdoc)
         .then(function(response){
           self.setState({
             title: '',

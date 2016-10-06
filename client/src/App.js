@@ -3,7 +3,7 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { Router, Route, browserHistory } from 'react-router';
 import ReportForm from './ReportForm';
-import ReportList from './ReportList';
+import Search from './Search';
 import './App.css';
 
 // Needed for onTouchTap
@@ -18,7 +18,7 @@ class App extends Component {
           <MuiThemeProvider>
             <Router history={browserHistory}>
               <Route path="/" component={ReportForm}/>
-              <Route path="/list" component={ReportList}/>
+              <Route path="/search" component={Search}/>
             </Router>
           </MuiThemeProvider>
         </div>
