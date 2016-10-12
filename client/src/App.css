@@ -19,11 +19,11 @@
 }
 
 header {
-  padding: 70px;
+  padding: 15px;
   background: #333;
   color: #fff;
   text-align: center;
-  font-size: 2.5rem;
+  font-size: 2.0rem;
 }
 
 .paper {
