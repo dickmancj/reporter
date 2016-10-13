@@ -66,7 +66,13 @@ class Form extends Component {
         url: this.state.url,
         author: this.state.author,
         publish_date: this.state.publish_date,
-        report_content: rawData.split(',')[1]
+        report_content: {
+          _name: files[0].name,
+          _content_type: files[0].type,
+          _date: files[0].lastModifiedDate,
+          _author: this.state.author,
+          _content: rawData.split(',')[1]
+        }
       };
 
       axios.post('http://' + process.env.REPORTS_ES_HOST + '/reports/document/', esdoc)
@@ -113,8 +119,8 @@ class Form extends Component {
     }.bind(this);
 
     if(files){
+      console.log(files);
       reader.readAsDataURL(files[0]);
-
     }
     // stringify state for form submission
     let formData = JSON.stringify(this.state);
@@ -132,6 +138,21 @@ class Form extends Component {
       snackbar_class: ''
     });
   }
+
+  onDrop(acceptedFiles) {
+    console.log(acceptedFiles);
+
+    //fileContent =
+    //var my_attachment = {
+    //  _content_type : acceptedFiles[0].type,
+    //    _name : acceptedFiles[0].name,
+    //    _content :
+    //};
+    this.setState({
+      report_files: acceptedFiles
+    });
+  }
+
 
   render() {
     return (
@@ -204,10 +225,9 @@ class Form extends Component {
             </div>
             <div className="flex-grid">
               <div className="col">
-                <Dropzone className="dropzone" onDrop={(files) => { this.handleChange('report_files', files); }}>
-                  <div>Try dropping some files here, or click to select files to upload.</div>
+                <Dropzone className="dropzone" multiple={false} onDrop={(files) => { this.handleChange('report_files', files); }}>
+                  <div>Drop report file here, or click to select file to upload.</div>
                   {this.state.report_files ? <div>
-                    <small>Uploading {this.state.report_files.length} files...</small>
                     <div>{this.state.report_files.map((file, idx) => <p key={idx}>{file.name}</p>)}</div>
                   </div> : null}
                 </Dropzone>
