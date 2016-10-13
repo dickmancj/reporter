@@ -7,14 +7,13 @@ import './Search.css';
 import elasticsearch from 'elasticsearch';
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
 import TextField from 'material-ui/TextField';
-
+import { browserHistory, Link } from 'react-router';
 let client = new elasticsearch.Client({
   host: process.env.REPORTS_ES_HOST
   //log: 'trace'
 });
 
 class Search extends Component {
-
 
   loadReportsFromServer(search_query) {
     console.log(process.env.REPORTS_ES_HOST);
@@ -29,6 +28,12 @@ class Search extends Component {
     }.bind(this), function ( error ) {
       console.trace( error.message );
     });
+  }
+
+  rowSelected(selectedRows){
+    var rpt = this.state.reports[selectedRows[0]];
+    //console.log(rpt);
+    browserHistory.push('/details/' + rpt._id);
   }
 
   constructor(props){
@@ -55,7 +60,7 @@ class Search extends Component {
     var rpts = this.state && this.state.reports ? this.state.reports.map(function(result) {
       return (
         <TableRow key={result._id}>
-          <TableRowColumn>{result._id}</TableRowColumn>
+          <TableRowColumn><Link to={{ pathname: '/details/' }} >{result._id}</Link></TableRowColumn>
           <TableRowColumn>{result._source.title}</TableRowColumn>
           <TableRowColumn>{result._score}</TableRowColumn>
         </TableRow>
@@ -77,7 +82,7 @@ class Search extends Component {
           </div>
           <div className="ReportList">
             Results
-            <Table>
+            <Table onRowSelection={this.rowSelected.bind(this)}>
               <TableHeader adjustForCheckbox={false} displaySelectAll={false}>
                 <TableRow>
                   <TableHeaderColumn>ID</TableHeaderColumn>

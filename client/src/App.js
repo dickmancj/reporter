@@ -4,6 +4,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { Router, Route, browserHistory } from 'react-router';
 import ReportForm from './ReportForm';
 import Search from './Search';
+import ReportDetails from './ReportDetails';
 import './App.css';
 
 // Needed for onTouchTap
@@ -19,6 +20,7 @@ class App extends Component {
             <Router history={browserHistory}>
               <Route path="/" component={ReportForm}/>
               <Route path="/search" component={Search}/>
+              <Route path="/details/:reportId" component={ReportDetails}/>
             </Router>
           </MuiThemeProvider>
         </div>
