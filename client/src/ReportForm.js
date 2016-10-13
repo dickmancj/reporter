@@ -42,7 +42,7 @@ class Form extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.validateForm = this.validateForm.bind(this);
-    this.handleRequestClosed = this.handleRequestClosed.bind(this);
+    this.handleRequestClose = this.handleRequestClose.bind(this);
   }
 
   handleChange(key, value) {
@@ -136,7 +136,8 @@ class Form extends Component {
     return !!(this.state.classification && this.state.report_type && this.state.title && this.state.product_id && this.state.report_files.length > 0);
   }
 
-  handleRequestClosed() {
+  handleRequestClose() {
+    console.log('handleRequestClose');
     this.setState({
       snackbar_message: '',
       show_snackbar: false,
