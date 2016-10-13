@@ -60,8 +60,8 @@ class Search extends Component {
     var rpts = this.state && this.state.reports ? this.state.reports.map(function(result) {
       return (
         <TableRow key={result._id}>
-          <TableRowColumn><Link to={{ pathname: '/details/' }} >{result._id}</Link></TableRowColumn>
           <TableRowColumn>{result._source.title}</TableRowColumn>
+          <TableRowColumn>{result._source.report_content._name}</TableRowColumn>
           <TableRowColumn>{result._score}</TableRowColumn>
         </TableRow>
       );
@@ -85,8 +85,8 @@ class Search extends Component {
             <Table onRowSelection={this.rowSelected.bind(this)}>
               <TableHeader adjustForCheckbox={false} displaySelectAll={false}>
                 <TableRow>
-                  <TableHeaderColumn>ID</TableHeaderColumn>
                   <TableHeaderColumn>Title</TableHeaderColumn>
+                  <TableHeaderColumn>File Name</TableHeaderColumn>
                   <TableHeaderColumn>Score</TableHeaderColumn>
                 </TableRow>
               </TableHeader>
