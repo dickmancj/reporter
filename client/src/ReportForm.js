@@ -13,6 +13,11 @@ import Paper from 'material-ui/Paper';
 import CircularProgress from 'material-ui/CircularProgress';
 import Snackbar from 'material-ui/Snackbar';
 import './ReportForm.css';
+import reportTypes from './reportTypes.json';
+
+const REPORT_TYPES = reportTypes.map(function (t) {
+  return <MenuItem key={t.value} value={t.value} primaryText={t.title} />
+});
 
 class Form extends Component {
   constructor(props) {
@@ -163,10 +168,7 @@ class Form extends Component {
               </div>
               <div className="col">
                 <SelectField value={this.state.report_type} onChange={(event, key, payload) => { this.handleChange('report_type', payload); }} floatingLabelText="Report Type" errorText={!this.state.report_type && 'Report Type is required'}>
-                  <MenuItem value="Type 1" primaryText="Type 1" />
-                  <MenuItem value="Type 2" primaryText="Type 2" />
-                  <MenuItem value="Type 3" primaryText="Type 3" />
-                  <MenuItem value="Type 4" primaryText="Type 4" />
+                  {REPORT_TYPES}
                 </SelectField>
               </div>
             </div>

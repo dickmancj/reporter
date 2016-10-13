@@ -78,14 +78,14 @@ class Search extends Component {
           <div className="ReportList">
             Results
             <Table>
-              <TableHeader>
+              <TableHeader adjustForCheckbox={false} displaySelectAll={false}>
                 <TableRow>
                   <TableHeaderColumn>ID</TableHeaderColumn>
                   <TableHeaderColumn>Title</TableHeaderColumn>
                   <TableHeaderColumn>Score</TableHeaderColumn>
                 </TableRow>
               </TableHeader>
-              <TableBody>
+              <TableBody displayRowCheckbox={false}>
                 { rpts }
               </TableBody>
             </Table>
