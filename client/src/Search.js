@@ -7,7 +7,7 @@ import './Search.css';
 import elasticsearch from 'elasticsearch';
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
 import TextField from 'material-ui/TextField';
-import { browserHistory, Link } from 'react-router';
+import { browserHistory } from 'react-router';
 let client = new elasticsearch.Client({
   host: process.env.REPORTS_ES_HOST
   //log: 'trace'
@@ -16,7 +16,7 @@ let client = new elasticsearch.Client({
 class Search extends Component {
 
   loadReportsFromServer(search_query) {
-    console.log(process.env.REPORTS_ES_HOST);
+    //console.log(process.env.REPORTS_ES_HOST);
 
     if(search_query === ''){ search_query = '*' }
     client.search({

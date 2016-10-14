@@ -1,8 +1,10 @@
 import React, {Component} from 'react';
 import Header from './Header';
 import Navigation from './Navigation';
+import Downloader from './components/Downloader';
 import axios from 'axios';
 import Paper from 'material-ui/Paper';
+
 //import { browserHistory, Router, Route, Link } from 'react-router';
 
 
@@ -52,6 +54,9 @@ class ReportDetails extends Component {
           <div className="flex-grid">
             <div className="col">
               {this.state.report._id}
+            </div>
+            <div className="col">
+              <Downloader />
             </div>
           </div>
         </Paper>
