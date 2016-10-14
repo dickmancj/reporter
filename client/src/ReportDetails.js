@@ -4,6 +4,7 @@ import Navigation from './Navigation';
 import Downloader from './components/Downloader';
 import axios from 'axios';
 import Paper from 'material-ui/Paper';
+import './ReportDetails.css';
 
 //import { browserHistory, Router, Route, Link } from 'react-router';
 
@@ -14,8 +15,18 @@ class ReportDetails extends Component {
     super(props);
     this.state = {
       reportId: props.params.reportId,
-      report: {
-      }
+      report: {},
+      title: '',
+      description: '',
+      classification: '',
+      author: '',
+      url: '',
+      keyword_list: '',
+      product_id: '',
+      publish_date: '',
+      updated_date: '',
+      report_type: '',
+      report_name: ''
     };
   }
 
@@ -28,7 +39,18 @@ class ReportDetails extends Component {
       .then(function (response) {
         console.log(response);
         self.setState({
-          report: response.data
+          report: response.data,
+          classification: response.data._source.classification,
+          report_type: response.data._source.report_type,
+          title: response.data._source.title,
+          author: response.data._source.author,
+          publish_date: response.data._source.publish_date,
+          updated_date: response.data._source.updated_date,
+          description: response.data._source.description,
+          url: response.data._source.url,
+          keyword_list: response.data._source.keyword_list,
+          product_id: response.data._source.product_id,
+          report_name: response.data._source.report_content._name
         });
       })
       .catch(function (error) {
@@ -42,7 +64,7 @@ class ReportDetails extends Component {
 
   render() {
     return (
-      <div className="container">
+      <div className="details-container">
         {this.state.show_overlay ? <div className="overlay">
           <div className="content">
 
@@ -51,12 +73,46 @@ class ReportDetails extends Component {
         <Header />
         <Navigation path={this.props.route.path}/>
         <Paper className="paper" zDepth={2}>
+          <h3>{this.state.report_name}</h3>
+          <Downloader content={this.state.report._source} />
           <div className="flex-grid">
             <div className="col">
-              {this.state.report._id}
+              {this.state.classification}
             </div>
             <div className="col">
-              <Downloader />
+              {this.state.report_type}
+            </div>
+          </div>
+          <div className="flex-grid">
+            <div className="col">
+              {this.state.title}
+            </div>
+            <div className="col">
+              {this.state.author}
+            </div>
+          </div>
+          <div className="flex-grid">
+            <div className="col">
+              {this.state.publish_date}
+            </div>
+            <div className="col">
+              {this.state.updated_date}
+            </div>
+          </div>
+          <div className="flex-grid">
+            <div className="col">
+              {this.state.url}
+            </div>
+            <div className="col">
+              {this.state.product_id}
+            </div>
+          </div>
+          <div className="flex-grid">
+            <div className="col">
+              {this.state.description}
+            </div>
+            <div className="col">
+              {this.state.keyword_list}
             </div>
           </div>
         </Paper>
