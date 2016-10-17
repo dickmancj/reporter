@@ -4,6 +4,7 @@ import Navigation from './Navigation';
 import Downloader from './components/Downloader';
 import axios from 'axios';
 import Paper from 'material-ui/Paper';
+import moment from 'moment';
 import './ReportDetails.css';
 
 //import { browserHistory, Router, Route, Link } from 'react-router';
@@ -77,41 +78,51 @@ class ReportDetails extends Component {
           <Downloader content={this.state.report._source} />
           <div className="flex-grid">
             <div className="col">
+              <label>Classification</label>
               {this.state.classification}
             </div>
             <div className="col">
+              <label>Report Type</label>
               {this.state.report_type}
             </div>
           </div>
           <div className="flex-grid">
             <div className="col">
+              <label>Title</label>
               {this.state.title}
             </div>
             <div className="col">
+              <label>Author</label>
               {this.state.author}
             </div>
           </div>
           <div className="flex-grid">
             <div className="col">
-              {this.state.publish_date}
+              <label>Publish Date</label>
+              {moment.utc(this.state.publish_date).format('YYYY-MM-DD HH:mm:ss')}
             </div>
             <div className="col">
+              <label>Updated Date</label>
               {this.state.updated_date}
             </div>
           </div>
           <div className="flex-grid">
             <div className="col">
-              {this.state.url}
+              <label>URL</label>
+              {this.state.url ? <a href={this.state.url}>{this.state.url}</a> : ''}
             </div>
             <div className="col">
+              <label>Product ID</label>
               {this.state.product_id}
             </div>
           </div>
           <div className="flex-grid">
             <div className="col">
+              <label>Description</label>
               {this.state.description}
             </div>
             <div className="col">
+              <label>Keyword List</label>
               {this.state.keyword_list}
             </div>
           </div>

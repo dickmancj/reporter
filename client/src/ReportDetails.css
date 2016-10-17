@@ -5,3 +5,16 @@
 .details-container h3 {
   padding-top: 20px;
 }
+
+.col {
+  text-align: left;
+  width: 45%;
+  max-width: 45%;
+  font-size: .9rem;
+}
+
+label {
+  color: #bbb;
+  display: block;
+  font-size: 1.2rem;
+}
