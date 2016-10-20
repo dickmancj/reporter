@@ -27,9 +27,11 @@ class Form extends Component {
       description: '',
       classification: '',
       author: '',
+      lat: '',
+      lng: '',
+      country_code: '',
       url: '',
       keyword_list: '',
-      product_id: '',
       publish_date: new Date(),
       updated_date: new Date(),
       report_type: '',
@@ -68,6 +70,9 @@ class Form extends Component {
         title: this.state.title,
         description: this.state.description,
         keyword_list: this.state.keyword_list,
+        lat: this.state.lat,
+        lng: this.state.lng,
+        country_code: this.state.country_code,
         url: this.state.url,
         author: this.state.author,
         publish_date: this.state.publish_date,
@@ -87,9 +92,11 @@ class Form extends Component {
             description: '',
             classification: '',
             author: '',
+            lat: '',
+            lng: '',
+            country_code: '',
             url: '',
             keyword_list: '',
-            product_id: '',
             publish_date: new Date(),
             updated_date: new Date(),
             report_type: '',
@@ -133,7 +140,7 @@ class Form extends Component {
   }
 
   validateForm() {
-    return !!(this.state.classification && this.state.report_type && this.state.title && this.state.product_id && this.state.report_files.length > 0);
+    return !!(this.state.classification && this.state.report_type && this.state.title && this.state.report_files.length > 0);
   }
 
   handleRequestClose() {
@@ -212,10 +219,18 @@ class Form extends Component {
             </div>
             <div className="flex-grid">
               <div className="col">
-                <TextField id="url" onChange={(event) => { this.handleChange('url', event.target.value); }} floatingLabelText="URL" value={this.state.url}/>
+                <TextField id="lat" onChange={(event) => { this.handleChange('lat', event.target.value); }} floatingLabelText="Latitude (DD)" value={this.state.lat}/>
               </div>
               <div className="col">
-                <TextField id="product-id" onChange={(event) => { this.handleChange('product_id', event.target.value); }} floatingLabelText="Product ID" value={this.state.product_id} errorText={!this.state.product_id && 'Product ID is required'}/>
+                <TextField id="lng" onChange={(event) => { this.handleChange('lng', event.target.value); }} floatingLabelText="Longitude (DD)" value={this.state.lng}/>
+              </div>
+            </div>
+            <div className="flex-grid">
+              <div className="col">
+                <TextField id="country-code" onChange={(event) => { this.handleChange('country_code', event.target.value); }} floatingLabelText="Country Code" value={this.state.country_code}/>
+              </div>
+              <div className="col">
+                <TextField id="url" onChange={(event) => { this.handleChange('url', event.target.value); }} floatingLabelText="URL" value={this.state.url}/>
               </div>
             </div>
             <div className="flex-grid">
