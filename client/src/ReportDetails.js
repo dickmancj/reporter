@@ -20,10 +20,8 @@ class ReportDetails extends Component {
       title: '',
       description: '',
       classification: '',
-      location_data: {
-        lat: '',
-        lon: ''
-      },
+      lat: '',
+      lon: '',
       country_code: '',
       author: '',
       url: '',
@@ -49,17 +47,15 @@ class ReportDetails extends Component {
           report_type: response.data._source.report_type,
           title: response.data._source.title,
           author: response.data._source.author,
-          location_data: {
-            lat: response.data._source.location_data.lat,
-            lon: response.data._source.location_data.lon
-          },
+          lat: response.data._source.location[0],
+          lon: response.data._source.location[1],
           country_code: response.data._source.country_code,
           publish_date: response.data._source.publish_date,
           updated_date: response.data._source.updated_date,
           description: response.data._source.description,
           url: response.data._source.url,
           keyword_list: response.data._source.keyword_list,
-          report_name: response.data._source.report_metadata._name
+          report_name: response.data._source.report_content._name
         });
       })
       .catch(function (error) {
@@ -117,11 +113,11 @@ class ReportDetails extends Component {
           <div className="flex-grid">
             <div className="col">
               <label>Latitude</label>
-              {this.state.location_data.lat}
+              {this.state.lat}
             </div>
             <div className="col">
               <label>Longitude</label>
-              {this.state.location_data.lon}
+              {this.state.lon}
             </div>
           </div>
           <div className="flex-grid">

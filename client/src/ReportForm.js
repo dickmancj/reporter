@@ -27,10 +27,8 @@ class Form extends Component {
       description: '',
       classification: '',
       author: '',
-      location: {
-        lat: '',
-        lon: ''
-      },
+      lat: '',
+      lon: '',
       country_code: '',
       url: '',
       keyword_list: '',
@@ -51,24 +49,10 @@ class Form extends Component {
 
   handleChange(key, value) {
     let stateObj = {};
-    if (key === 'lat' || key === 'lon') {
-      stateObj = {
-        location: {
-          lat: this.state.location.lat,
-          lon: this.state.location.lon
-        }
-      };
-      stateObj.location[key] = value;
-    } else {
-      stateObj[key] = value;
-    }
+    stateObj[key] = value;
     this.setState(stateObj, () => {
       // callback after state changes
-      if (key === 'lat' || key === 'lon') {
-        console.log(this.state.location[key]);
-      } else {
-        console.log(this.state[key]);
-      }
+      console.log(this.state[key]);
     });
   }
 
@@ -86,7 +70,7 @@ class Form extends Component {
         title: this.state.title,
         description: this.state.description,
         keyword_list: this.state.keyword_list,
-        location: [parseFloat(this.state.location.lat),parseFloat(this.state.location.lon)],
+        location: [parseFloat(this.state.lat), parseFloat(this.state.lon)],
         country_code: this.state.country_code,
         url: this.state.url,
         author: this.state.author,
@@ -107,10 +91,8 @@ class Form extends Component {
             description: '',
             classification: '',
             author: '',
-            location: {
-              lat: '',
-              lon: ''
-            },
+            lat: '',
+            lon: '',
             country_code: '',
             url: '',
             keyword_list: '',
@@ -236,10 +218,10 @@ class Form extends Component {
             </div>
             <div className="flex-grid">
               <div className="col">
-                <TextField id="lat" onChange={(event) => { this.handleChange('lat', event.target.value); }} floatingLabelText="Latitude (DD)" value={this.state.location.lat || ''}/>
+                <TextField id="lat" onChange={(event) => { this.handleChange('lat', event.target.value); }} floatingLabelText="Latitude (DD)" value={this.state.lat || ''}/>
               </div>
               <div className="col">
-                <TextField id="lon" onChange={(event) => { this.handleChange('lon', event.target.value); }} floatingLabelText="Longitude (DD)" value={this.state.location.lon || ''}/>
+                <TextField id="lon" onChange={(event) => { this.handleChange('lon', event.target.value); }} floatingLabelText="Longitude (DD)" value={this.state.lon || ''}/>
               </div>
             </div>
             <div className="flex-grid">
