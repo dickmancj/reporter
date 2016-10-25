@@ -20,10 +20,14 @@ class ReportDetails extends Component {
       title: '',
       description: '',
       classification: '',
+      location_data: {
+        lat: '',
+        lon: ''
+      },
+      country_code: '',
       author: '',
       url: '',
       keyword_list: '',
-      product_id: '',
       publish_date: '',
       updated_date: '',
       report_type: '',
@@ -45,13 +49,17 @@ class ReportDetails extends Component {
           report_type: response.data._source.report_type,
           title: response.data._source.title,
           author: response.data._source.author,
+          location_data: {
+            lat: response.data._source.location_data.lat,
+            lon: response.data._source.location_data.lon
+          },
+          country_code: response.data._source.country_code,
           publish_date: response.data._source.publish_date,
           updated_date: response.data._source.updated_date,
           description: response.data._source.description,
           url: response.data._source.url,
           keyword_list: response.data._source.keyword_list,
-          product_id: response.data._source.product_id,
-          report_name: response.data._source.report_content._name
+          report_name: response.data._source.report_metadata._name
         });
       })
       .catch(function (error) {
@@ -108,12 +116,22 @@ class ReportDetails extends Component {
           </div>
           <div className="flex-grid">
             <div className="col">
-              <label>URL</label>
-              {this.state.url ? <a href={this.state.url}>{this.state.url}</a> : ''}
+              <label>Latitude</label>
+              {this.state.location_data.lat}
             </div>
             <div className="col">
-              <label>Product ID</label>
-              {this.state.product_id}
+              <label>Longitude</label>
+              {this.state.location_data.lon}
+            </div>
+          </div>
+          <div className="flex-grid">
+            <div className="col">
+              <label>Country Code</label>
+              {this.state.country_code}
+            </div>
+            <div className="col">
+              <label>URL</label>
+              {this.state.url ? <a href={this.state.url}>{this.state.url}</a> : ''}
             </div>
           </div>
           <div className="flex-grid">

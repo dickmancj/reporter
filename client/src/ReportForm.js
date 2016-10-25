@@ -27,8 +27,10 @@ class Form extends Component {
       description: '',
       classification: '',
       author: '',
-      lat: '',
-      lng: '',
+      location_data: {
+        lat: '',
+        lon: ''
+      },
       country_code: '',
       url: '',
       keyword_list: '',
@@ -49,10 +51,24 @@ class Form extends Component {
 
   handleChange(key, value) {
     let stateObj = {};
-    stateObj[key] = value;
+    if (key === 'lat' || key === 'lon') {
+      stateObj = {
+        location_data: {
+          lat: this.state.location_data.lat,
+          lon: this.state.location_data.lon
+        }
+      };
+      stateObj.location_data[key] = value;
+    } else {
+      stateObj[key] = value;
+    }
     this.setState(stateObj, () => {
       // callback after state changes
-      console.log(this.state[key]);
+      if (key === 'lat' || key === 'lon') {
+        console.log(this.state.location_data[key]);
+      } else {
+        console.log(this.state[key]);
+      }
     });
   }
 
@@ -70,13 +86,15 @@ class Form extends Component {
         title: this.state.title,
         description: this.state.description,
         keyword_list: this.state.keyword_list,
-        lat: this.state.lat,
-        lng: this.state.lng,
+        location_data: {
+          lat: parseFloat(this.state.location_data.lat),
+          lon: parseFloat(this.state.location_data.lon)
+        },
         country_code: this.state.country_code,
         url: this.state.url,
         author: this.state.author,
         publish_date: this.state.publish_date,
-        report_content: {
+        report_metadata: {
           _name: files[0].name,
           _content_type: files[0].type,
           _date: files[0].lastModifiedDate,
@@ -92,8 +110,10 @@ class Form extends Component {
             description: '',
             classification: '',
             author: '',
-            lat: '',
-            lng: '',
+            location_data: {
+              lat: '',
+              lon: ''
+            },
             country_code: '',
             url: '',
             keyword_list: '',
@@ -123,7 +143,7 @@ class Form extends Component {
           self.setState({
             show_overlay: false,
             snackbar_message: 'Error posting document: ' + error.message,
-            show_snackar: true,
+            show_snackbar: true,
             snackbar_class: 'fail'
           });
         });
@@ -219,10 +239,10 @@ class Form extends Component {
             </div>
             <div className="flex-grid">
               <div className="col">
-                <TextField id="lat" onChange={(event) => { this.handleChange('lat', event.target.value); }} floatingLabelText="Latitude (DD)" value={this.state.lat}/>
+                <TextField id="lat" onChange={(event) => { this.handleChange('lat', event.target.value); }} floatingLabelText="Latitude (DD)" value={this.state.location_data.lat || ''}/>
               </div>
               <div className="col">
-                <TextField id="lng" onChange={(event) => { this.handleChange('lng', event.target.value); }} floatingLabelText="Longitude (DD)" value={this.state.lng}/>
+                <TextField id="lon" onChange={(event) => { this.handleChange('lon', event.target.value); }} floatingLabelText="Longitude (DD)" value={this.state.location_data.lon || ''}/>
               </div>
             </div>
             <div className="flex-grid">
