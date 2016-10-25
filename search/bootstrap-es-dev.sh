@@ -17,7 +17,7 @@ curl -H 'Content-Type: application/json' -H 'Accept: application/json' -X PUT 'h
             "file_size": { "type": "string" },
             "report_type": { "type": "string" },
             "requirement": { "type": "string" },
-            "location": { "type": "geo_point", "lat_lon": true },
+            "location": { "type": "geo_point" },
             "updated_date": { "type": "date" }
         }
     }
