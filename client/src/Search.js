@@ -22,8 +22,10 @@ class Search extends Component {
     client.search({
       index: 'reports',
       type: 'document',
-      q: search_query
+      q: search_query //,
+      //fields: '_id,author,title,report_content'
     }).then(function ( body ) {
+      console.log(body);
       this.setState({ reports: body.hits.hits });
     }.bind(this), function ( error ) {
       console.trace( error.message );
@@ -57,17 +59,20 @@ class Search extends Component {
   }
 
   render() {
+    console.log('render');
+    console.log(this.state);
     var rpts = this.state && this.state.reports ? this.state.reports.map(function(result) {
       return (
         <TableRow key={result._id}>
           <TableRowColumn>{result._source.title}</TableRowColumn>
-          <TableRowColumn>{result._source.report_metadata._name}</TableRowColumn>
+          <TableRowColumn>{result._source.report_content._name}</TableRowColumn>
           <TableRowColumn>{result._score}</TableRowColumn>
         </TableRow>
       );
     }) : (
       <TableRow>No Results</TableRow>
     );
+
     return (
       <div>
         <Header/>
