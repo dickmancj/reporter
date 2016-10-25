@@ -61,7 +61,7 @@ class Search extends Component {
       return (
         <TableRow key={result._id}>
           <TableRowColumn>{result._source.title}</TableRowColumn>
-          <TableRowColumn>{result._source.report_metadata._name}</TableRowColumn>
+          <TableRowColumn>{result._source.report_content._name}</TableRowColumn>
           <TableRowColumn>{result._score}</TableRowColumn>
         </TableRow>
       );
