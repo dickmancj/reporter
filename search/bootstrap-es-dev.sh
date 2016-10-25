@@ -2,8 +2,8 @@ curl -X POST 'http://localhost:9200/reports' -d '{
     "settings" : {}
     }'
 
-curl -H 'Content-Type: application/json' -H 'Accept: application/json' -X PUT 'http://localhost:9200/reports/report/_mapping' -d '{
-    "report" : {
+curl -H 'Content-Type: application/json' -H 'Accept: application/json' -X PUT 'http://localhost:9200/reports/document/_mapping' -d '{
+    "document" : {
         "properties" : {
             "classification": {"type": "string" },
             "title": { "type": "string" },
