@@ -41,7 +41,6 @@ class Search extends Component {
     super(props);
     client = new elasticsearch.Client({
       host: props.source
-      //log: 'trace'
     });
   }
 

@@ -67,14 +67,19 @@ class Form extends Component {
       //console.log(rawData);
       var esdoc = {
         classification: this.state.classification,
+        report_type: this.state.report_type,
         title: this.state.title,
         description: this.state.description,
         keyword_list: this.state.keyword_list,
-        location: [parseFloat(this.state.lat), parseFloat(this.state.lon)],
+        location: {
+          lat: parseFloat(this.state.lat).toFixed(6),
+          lon: parseFloat(this.state.lon).toFixed(6)
+        },
         country_code: this.state.country_code,
         url: this.state.url,
         author: this.state.author,
         publish_date: this.state.publish_date,
+        updated_date: this.state.updated_date,
         report_content: {
           _name: files[0].name,
           _content_type: files[0].type,
