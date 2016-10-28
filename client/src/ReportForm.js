@@ -27,6 +27,7 @@ class Form extends Component {
       description: '',
       classification: '',
       author: '',
+      agency: '',
       lat: '',
       lon: '',
       country_code: '',
@@ -78,6 +79,7 @@ class Form extends Component {
         country_code: this.state.country_code,
         url: this.state.url,
         author: this.state.author,
+        agency: this.state.agency,
         publish_date: this.state.publish_date,
         updated_date: this.state.updated_date,
         report_content: {
@@ -96,6 +98,7 @@ class Form extends Component {
             description: '',
             classification: '',
             author: '',
+            agency: '',
             lat: '',
             lon: '',
             country_code: '',
@@ -204,8 +207,6 @@ class Form extends Component {
                   {REPORT_TYPES}
                 </SelectField>
               </div>
-            </div>
-            <div className="flex-grid">
               <div className="col">
                 <TextField id="title" onChange={(event) => { this.handleChange('title', event.target.value); }} floatingLabelText="Title" value={this.state.title} errorText={!this.state.title && 'Title is required'}/>
               </div>
@@ -215,6 +216,12 @@ class Form extends Component {
             </div>
             <div className="flex-grid">
               <div className="col">
+                <TextField id="agency" onChange={(event) => { this.handleChange('agency', event.target.value); }} floatingLabelText="Agency" value={this.state.agency}/>
+              </div>
+              <div className="col">
+                <DatePicker id="publish-date" container="inline" mode="landscape" floatingLabelText="Publish Date" autoOk={true} value={this.state.publish_date} onChange={(event, date) => { this.handleChange('publish_date', date); }}/>
+              </div>
+              <div className="col">
                 <DatePicker id="publish-date" container="inline" mode="landscape" floatingLabelText="Publish Date" autoOk={true} value={this.state.publish_date} onChange={(event, date) => { this.handleChange('publish_date', date); }}/>
               </div>
               <div className="col">
@@ -223,44 +230,34 @@ class Form extends Component {
             </div>
             <div className="flex-grid">
               <div className="col">
+                <TextField id="url" onChange={(event) => { this.handleChange('url', event.target.value); }} floatingLabelText="URL" value={this.state.url}/>
+              </div>
+              <div className="col">
                 <TextField id="lat" onChange={(event) => { this.handleChange('lat', event.target.value); }} floatingLabelText="Latitude (DD)" value={this.state.lat || ''}/>
               </div>
               <div className="col">
                 <TextField id="lon" onChange={(event) => { this.handleChange('lon', event.target.value); }} floatingLabelText="Longitude (DD)" value={this.state.lon || ''}/>
               </div>
-            </div>
-            <div className="flex-grid">
               <div className="col">
                 <TextField id="country-code" onChange={(event) => { this.handleChange('country_code', event.target.value); }} floatingLabelText="Country Code" value={this.state.country_code}/>
               </div>
-              <div className="col">
-                <TextField id="url" onChange={(event) => { this.handleChange('url', event.target.value); }} floatingLabelText="URL" value={this.state.url}/>
-              </div>
             </div>
             <div className="flex-grid">
-              <div className="col">
-                <TextField id="description" onChange={(event) => { this.handleChange('description', event.target.value); }} multiLine={true} rows={3} floatingLabelText="Description" value={this.state.description}/>
+              <div className="col-2">
+                <TextField id="description" className="multiline" onChange={(event) => { this.handleChange('description', event.target.value); }} multiLine={true} rows={3} floatingLabelText="Description" value={this.state.description}/>
               </div>
-              <div className="col">
-                <TextField id="keyword-list" onChange={(event) => { this.handleChange('keyword_list', event.target.value); }} multiLine={true} rows={3} floatingLabelText="Keywords" value={this.state.keyword_list}/>
-              </div>
-            </div>
-            <div className="flex-grid">
-              <div className="col">
-                <Dropzone className="dropzone" multiple={false} onDrop={(files) => { this.handleChange('report_files', files); }}>
-                  <div>Drop report file here, or click to select file to upload.</div>
-                  {this.state.report_files ? <div>
-                    <div>{this.state.report_files.map((file, idx) => <p key={idx}>{file.name}</p>)}</div>
-                  </div> : null}
-                </Dropzone>
+              <div className="col-2">
+                <TextField id="keyword-list" className="multiline" onChange={(event) => { this.handleChange('keyword_list', event.target.value); }} multiLine={true} rows={3} floatingLabelText="Keywords" value={this.state.keyword_list}/>
               </div>
             </div>
-            <div className="flex-grid">
-              <div className="col">
-                <div className="submit-btn">
-                  <RaisedButton label="Submit" fullWidth={true} labelPosition="before" primary={true} icon={<FontIcon className="material-icons">check_circle</FontIcon>} onClick={this.handleClick} disabled={!this.validateForm()}/>
-                </div>
-              </div>
+            <Dropzone className="dropzone" multiple={false} onDrop={(files) => { this.handleChange('report_files', files); }}>
+              <div>Drop report file here, or click to select file to upload.</div>
+              {this.state.report_files ? <div>
+                <div>{this.state.report_files.map((file, idx) => <p key={idx}>{file.name}</p>)}</div>
+              </div> : null}
+            </Dropzone>
+            <div className="submit-btn">
+              <RaisedButton label="Submit" fullWidth={true} labelPosition="before" primary={true} icon={<FontIcon className="material-icons">check_circle</FontIcon>} onClick={this.handleClick} disabled={!this.validateForm()}/>
             </div>
           </Paper>
         </div>

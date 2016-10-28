@@ -1,11 +1,18 @@
 .flex-grid {
   display: flex;
+  flex-wrap: wrap;
 }
-.flex-grid .row {
-  display: block;
-}
-.flex-grid .row .col {
+.flex-grid .col {
   flex: 1;
+}
+
+.flex-grid .col-2 {
+  flex: 2;
+}
+
+.multiline {
+  width: 100% !important;
+  display: block;
 }
 
 * {
@@ -14,8 +21,8 @@
 .flex-grid {
   margin: 0 0 20px 0;
 }
-.col {
-  padding: 20px;
+.col, .col-2 {
+  padding: 0 20px;
 }
 
 header {
@@ -27,7 +34,7 @@ header {
 }
 
 .paper {
-  width: 595px;
+  width: 95%;
   margin: 20px auto;
 }
 
