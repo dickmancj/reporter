@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Header = () => (
-    <header>Reporter</header>
+    <header>GEOINT Research Scientific and Technical Reports</header>
 );
 
 export default Header;
