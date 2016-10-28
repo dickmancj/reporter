@@ -1,0 +1,16 @@
+{
+  "name": "api",
+  "version": "0.0.1",
+  "description": "Reporter API",
+  "main": "server.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "hapi": "^15.2.0",
+    "inert": "^4.0.2",
+    "zlib": "^1.0.5"
+  }
+}
