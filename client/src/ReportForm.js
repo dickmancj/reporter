@@ -72,8 +72,8 @@ class Form extends Component {
         description: this.state.description,
         keyword_list: this.state.keyword_list,
         location: {
-          lat: parseFloat(this.state.lat).toFixed(6),
-          lon: parseFloat(this.state.lon).toFixed(6)
+          lat: parseFloat(this.state.lat),
+          lon: parseFloat(this.state.lon)
         },
         country_code: this.state.country_code,
         url: this.state.url,
