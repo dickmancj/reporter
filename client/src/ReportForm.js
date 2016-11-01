@@ -33,6 +33,7 @@ class Form extends Component {
       country_code: '',
       url: '',
       keyword_list: '',
+      event_date: new Date(),
       publish_date: new Date(),
       updated_date: new Date(),
       report_type: '',
@@ -80,6 +81,7 @@ class Form extends Component {
         url: this.state.url,
         author: this.state.author,
         agency: this.state.agency,
+        event_date: this.state.event_date,
         publish_date: this.state.publish_date,
         updated_date: this.state.updated_date,
         report_content: {
@@ -104,6 +106,7 @@ class Form extends Component {
             country_code: '',
             url: '',
             keyword_list: '',
+            event_date: new Date(),
             publish_date: new Date(),
             updated_date: new Date(),
             report_type: '',
@@ -219,7 +222,7 @@ class Form extends Component {
                 <TextField id="agency" onChange={(event) => { this.handleChange('agency', event.target.value); }} floatingLabelText="Agency" value={this.state.agency}/>
               </div>
               <div className="col">
-                <DatePicker id="publish-date" container="inline" mode="landscape" floatingLabelText="Publish Date" autoOk={true} value={this.state.publish_date} onChange={(event, date) => { this.handleChange('publish_date', date); }}/>
+                <DatePicker id="event-date" container="inline" mode="landscape" floatingLabelText="Event Date" autoOk={true} value={this.state.event_date} onChange={(event, date) => { this.handleChange('event_date', date); }}/>
               </div>
               <div className="col">
                 <DatePicker id="publish-date" container="inline" mode="landscape" floatingLabelText="Publish Date" autoOk={true} value={this.state.publish_date} onChange={(event, date) => { this.handleChange('publish_date', date); }}/>

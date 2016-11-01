@@ -24,8 +24,10 @@ class ReportDetails extends Component {
       lon: '',
       country_code: '',
       author: '',
+      agency: '',
       url: '',
       keyword_list: '',
+      event_date: '',
       publish_date: '',
       updated_date: '',
       report_type: '',
@@ -47,9 +49,11 @@ class ReportDetails extends Component {
           report_type: response.data._source.report_type,
           title: response.data._source.title,
           author: response.data._source.author,
+          agency: response.data._source.agency,
           lat: response.data._source.location.lat,
           lon: response.data._source.location.lon,
           country_code: response.data._source.country_code,
+          event_date: response.data._source.event_date,
           publish_date: response.data._source.publish_date,
           updated_date: response.data._source.updated_date,
           description: response.data._source.description,
@@ -79,7 +83,9 @@ class ReportDetails extends Component {
         <Navigation path={this.props.route.path}/>
         <Paper className="paper" zDepth={2}>
           <h3>{this.state.report_name}</h3>
-          <Downloader content={this.state.report._source} />
+          <div className="download">
+            <Downloader content={this.state.report._source} />
+          </div>
           <div className="flex-grid">
             <div className="col">
               <label>Classification</label>
@@ -89,8 +95,6 @@ class ReportDetails extends Component {
               <label>Report Type</label>
               {this.state.report_type}
             </div>
-          </div>
-          <div className="flex-grid">
             <div className="col">
               <label>Title</label>
               {this.state.title}
@@ -102,6 +106,14 @@ class ReportDetails extends Component {
           </div>
           <div className="flex-grid">
             <div className="col">
+              <label>Agency</label>
+              {this.state.agency}
+            </div>
+            <div className="col">
+              <label>Event Date</label>
+              {moment.utc(this.state.event_date).format('YYYY-MM-DD HH:mm:ss')}
+            </div>
+            <div className="col">
               <label>Publish Date</label>
               {moment.utc(this.state.publish_date).format('YYYY-MM-DD HH:mm:ss')}
             </div>
@@ -111,6 +123,10 @@ class ReportDetails extends Component {
             </div>
           </div>
           <div className="flex-grid">
+            <div className="col">
+              <label>URL</label>
+              {this.state.url ? <a href={this.state.url}>{this.state.url}</a> : ''}
+            </div>
             <div className="col">
               <label>Latitude</label>
               {this.state.lat}
@@ -125,17 +141,13 @@ class ReportDetails extends Component {
               <label>Country Code</label>
               {this.state.country_code}
             </div>
-            <div className="col">
-              <label>URL</label>
-              {this.state.url ? <a href={this.state.url}>{this.state.url}</a> : ''}
-            </div>
           </div>
           <div className="flex-grid">
-            <div className="col">
+            <div className="col-2">
               <label>Description</label>
               {this.state.description}
             </div>
-            <div className="col">
+            <div className="col-2">
               <label>Keyword List</label>
               {this.state.keyword_list}
             </div>

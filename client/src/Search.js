@@ -62,6 +62,10 @@ class Search extends Component {
         <TableRow key={result._id}>
           <TableRowColumn>{result._source.title}</TableRowColumn>
           <TableRowColumn>{result._source.report_content._name}</TableRowColumn>
+          <TableRowColumn>{result._source.author}</TableRowColumn>
+          <TableRowColumn>{result._source.agency}</TableRowColumn>
+          <TableRowColumn>{result._source.publish_date}</TableRowColumn>
+          <TableRowColumn>{result._source.updated_date}</TableRowColumn>
           <TableRowColumn>{result._score}</TableRowColumn>
         </TableRow>
       );
@@ -88,6 +92,10 @@ class Search extends Component {
                 <TableRow>
                   <TableHeaderColumn>Title</TableHeaderColumn>
                   <TableHeaderColumn>File Name</TableHeaderColumn>
+                  <TableHeaderColumn>Author</TableHeaderColumn>
+                  <TableHeaderColumn>Agency</TableHeaderColumn>
+                  <TableHeaderColumn>Publish Date</TableHeaderColumn>
+                  <TableHeaderColumn>Updated Date</TableHeaderColumn>
                   <TableHeaderColumn>Score</TableHeaderColumn>
                 </TableRow>
               </TableHeader>
