@@ -33,9 +33,16 @@ header {
   font-size: 2.0rem;
 }
 
+.logo {
+  width: 75px;
+  height: 75px;
+  vertical-align: middle;
+}
+
 .paper {
   width: 95%;
   margin: 20px auto;
+  padding-bottom: 35px;
 }
 
 .text-right {
