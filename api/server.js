@@ -10,6 +10,7 @@ var Hapi = require('hapi'),
   server = new Hapi.Server();
 
 const Path = require('path');
+const DownloadService = require('./services/downloadService')();
 
 server.connection({
   host: '0.0.0.0',
@@ -43,6 +44,15 @@ server.register([
       }
     }
   });
+
+  server.route({
+    method: 'GET',
+    path: '/file/{id*}',
+    handler: function (request, response) {
+      DownloadService.downloadFile(request.params.id, response);
+    }
+  });
+
   server.route({
     method: 'POST',
     path: '/bulk/',

@@ -9,8 +9,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "atob": "^2.0.3",
     "hapi": "^15.2.0",
     "inert": "^4.0.2",
+    "xmlhttprequest": "^1.8.0",
     "zlib": "^1.0.5"
   }
 }
