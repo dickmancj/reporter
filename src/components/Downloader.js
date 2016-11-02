@@ -14,14 +14,16 @@ export default class Navigation extends Component {
   }
 
   handleClick() {
-    fileDownload(window.atob(this.props.content.report_content._content), this.props.content.report_content._name);
+    fileDownload(window.atob(this.props.content._source.report_content._content), this.props.content._source.report_content._name);
   }
 
   render() {
     return (
-      <FloatingActionButton onClick={this.handleClick}>
-        <FontIcon className="material-icons">cloud_download</FontIcon>
-      </FloatingActionButton>
+      <a href={`/file/${this.props.content._id}`} >
+        <FloatingActionButton>
+          <FontIcon className="material-icons">cloud_download</FontIcon>
+        </FloatingActionButton>
+      </a>
     );
   }
 }
