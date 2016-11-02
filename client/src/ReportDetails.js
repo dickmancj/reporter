@@ -50,8 +50,8 @@ class ReportDetails extends Component {
           title: response.data._source.title,
           author: response.data._source.author,
           agency: response.data._source.agency,
-          lat: response.data._source.location.lat,
-          lon: response.data._source.location.lon,
+          lat: response.data._source.location && response.data._source.location.lat ? response.data._source.location.lat : '',
+          lon: response.data._source.location && response.data._source.location.lon ? response.data._source.location.lon : '',
           country_code: response.data._source.country_code,
           event_date: response.data._source.event_date,
           publish_date: response.data._source.publish_date,
@@ -84,7 +84,7 @@ class ReportDetails extends Component {
         <Paper className="paper" zDepth={2}>
           <h3>{this.state.report_name}</h3>
           <div className="download">
-            <Downloader content={this.state.report._source} />
+            <Downloader content={this.state.report} />
           </div>
           <div className="flex-grid">
             <div className="col">
