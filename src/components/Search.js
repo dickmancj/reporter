@@ -16,50 +16,27 @@ let client = new elasticsearch.Client({
 });
 
 class Search extends Component {
-
-  loadReportsFromServer(search_query) {
-    //console.log(process.env.REPORTS_ES_HOST);
-
-    if(search_query === ''){ search_query = '*' }
-    client.search({
-      index: 'reports',
-      type: 'document',
-      q: search_query
-    }).then(function ( body ) {
-      //console.log(body);
-      this.setState({ reports: body.hits.hits });
-    }.bind(this), function ( error ) {
-      console.trace( error.message );
-    });
-  }
-
-  rowSelected(selectedRows){
-    var rpt = this.state.reports[selectedRows[0]];
-    //console.log(rpt);
-    browserHistory.push('/details/' + rpt._id);
-  }
-
-  constructor(props){
+  constructor (props) {
     super(props);
     client = new elasticsearch.Client({
       host: props.source
     });
   }
 
-  componentWillMount() {
-    this.queryChanged = _.debounce(function (search_query) {
+  componentWillMount () {
+    this.queryChanged = _.debounce((search_query) => {
       console.log(search_query);
       this.loadReportsFromServer(search_query);
     }, 500);
   }
 
-  componentDidMount() {
+  componentDidMount () {
     //this.setState({reports: []});
     this.loadReportsFromServer('*');
   }
 
-  render() {
-    var rpts = this.state && this.state.reports ? this.state.reports.map(function(result) {
+  render () {
+    var rpts = this.state && this.state.reports ? this.state.reports.map((result) => {
       return (
         <TableRow key={result._id}>
           <TableRowColumn>{result._source.title}</TableRowColumn>
@@ -79,15 +56,18 @@ class Search extends Component {
       <div>
         <Header/>
         <Navigation path={this.props.route.path}/>
-        <Paper className="paper" zDepth={2}>
-          <div className="ReportSearch">
+        <Paper className='paper' zDepth={2}>
+          <div className='ReportSearch'>
             <TextField
-              floatingLabelText="Search"
-              onChange={(event, key, payload) => { this.queryChanged(event.target.value); }}
-              style={{width: "100%"}}
+              floatingLabelText='Search'
+              onChange={(event) => {
+                  this.queryChanged(event.target.value);
+                }
+              }
+              style={{width: '100%'}}
               />
           </div>
-          <div className="ReportList">
+          <div className='ReportList'>
             Results
             <Table onRowSelection={this.rowSelected.bind(this)}>
               <TableHeader adjustForCheckbox={false} displaySelectAll={false}>
@@ -102,7 +82,7 @@ class Search extends Component {
                 </TableRow>
               </TableHeader>
               <TableBody displayRowCheckbox={false}>
-                { rpts }
+                {rpts}
               </TableBody>
             </Table>
           </div>
@@ -110,6 +90,36 @@ class Search extends Component {
       </div>
     );
   }
+
+  loadReportsFromServer (search_query) {
+    //console.log(process.env.REPORTS_ES_HOST);
+
+    if (search_query === '') {
+      search_query = '*';
+    }
+
+    client.search({
+      index: 'reports',
+      type: 'document',
+      q: search_query
+    }).then((body) => {
+      //console.log(body);
+      this.setState({reports: body.hits.hits});
+    }, (error) => {
+      console.trace(error.message);
+    });
+  }
+
+  rowSelected (selectedRows) {
+    var rpt = this.state.reports[selectedRows[0]];
+    //console.log(rpt);
+    browserHistory.push('/details/' + rpt._id);
+  }
 }
+
+Search.propTypes = {
+  route: React.PropTypes.object,
+  source: React.PropTypes.string
+};
 
 export default Search;
