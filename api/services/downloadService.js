@@ -29,7 +29,7 @@
       var data = getSync(file_url)[1];
       var report_content = data._source.report_content;
       //response(data);
-
+      
       var response = reply(atob(report_content._content)).hold();
       var header = response.header('Content-Type', report_content._content_type).header('Content-Disposition', 'attachment; filename=' + report_content._name);
       response.send();

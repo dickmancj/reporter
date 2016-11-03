@@ -64,7 +64,8 @@ class Form extends Component {
     var files = this.state['report_files'];
     self.setState({show_overlay: true});
     reader.onload = function(e) {
-      var rawData = e.target.result;
+      var rawData = btoa(e.target.result);
+      debugger;
       //console.log(e);
       //console.log(rawData);
       var esdoc = {
@@ -89,7 +90,7 @@ class Form extends Component {
           _content_type: files[0].type,
           _date: files[0].lastModifiedDate,
           _author: this.state.author,
-          _content: rawData.split(',')[1]
+          _content: rawData //rawData.split(',')[1]
         }
       };
 
@@ -137,12 +138,12 @@ class Form extends Component {
             snackbar_class: 'fail'
           });
         });
-      console.log(esdoc);
+      //console.log(esdoc);
     }.bind(this);
 
     if(files){
-      console.log(files);
-      reader.readAsDataURL(files[0]);
+      //console.log(files);
+      reader.readAsBinaryString(files[0]);
     }
     // stringify state for form submission
     let formData = JSON.stringify(this.state);
