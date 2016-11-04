@@ -1,0 +1,28 @@
+.details-container {
+  text-align: center;
+}
+
+.details-container h3 {
+  padding-top: 20px;
+}
+
+.download {
+  margin-bottom: 15px;
+}
+
+.col {
+  text-align: left;
+  width: 45%;
+  max-width: 45%;
+  font-size: .9rem;
+}
+
+.col-2 {
+  text-align: left;
+}
+
+label {
+  color: #bbb;
+  display: block;
+  font-size: 1.2rem;
+}

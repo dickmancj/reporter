@@ -10,7 +10,7 @@ var Hapi = require('hapi'),
   server = new Hapi.Server();
 
 const Path = require('path');
-const DownloadService = require('./services/downloadService')();
+const DownloadService = require('./../src/services/downloadService')();
 
 server.connection({
   host: '0.0.0.0',

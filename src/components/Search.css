@@ -1,0 +1,11 @@
+.ReportList {
+  padding: 20px;
+}
+
+.ReportList tr:hover {
+  cursor: pointer;
+}
+
+.ReportSearch {
+  padding: 0px 20px 0px 20px;
+}

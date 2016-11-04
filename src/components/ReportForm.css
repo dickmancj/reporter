@@ -1,0 +1,64 @@
+.container {
+  position: relative;
+}
+
+.file-input {
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  width: 100%;
+  opacity: 0;
+}
+
+.dropzone {
+  border: 1px dotted #000;
+  padding: 10px;
+  height: 110px;
+  width: 98%;
+  margin: 0 auto;
+}
+
+.submit-btn {
+  width: 553px;
+  margin: 20px auto;
+  padding-bottom: 20px;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1010;
+  background: rgba(255, 255, 255, 0.9);
+  text-align: center;
+}
+
+.overlay .content {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  margin-top: -50px;
+  margin-left: -50px;
+}
+
+.success {
+  background: green;
+  color: #fff;
+}
+
+.fail {
+  background: red;
+  color: #fff;
+}
+
+@media (max-width: 625px) {
+  .submit-btn {
+    width: auto;
+    margin: 20px;
+  }
+}
